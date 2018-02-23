@@ -70,3 +70,11 @@
 [submodule ".vim/bundle/auto-pairs"]
         path = .vim/bundle/auto-pairs
         url = https://github.com/jiangmiao/auto-pairs.git
+
+[submodule ".vim/bundle/vim-velocity"]
+        path = .vim/bundle/vim-velocity
+        url = https://github.com/lepture/vim-velocity.git
+
+[submodule ".vim/bundle/vimtex"]
+        path = .vim/bundle/vimtex
+        url = https://github.com/lervag/vimtex.git

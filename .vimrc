@@ -18,22 +18,18 @@ color smyck
 " Add line numbers
 set number
 set ruler
-set cursorline
-
-" Disable Backup and Swap files
-set noswapfile
-set nobackup
-set nowritebackup
 
 " Set encoding
 set encoding=utf-8
 
 " Whitespace stuff
-set nowrap
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
+set autoindent
 set expandtab
+set tabstop=4
+set shiftwidth=4
+
+" verbose mode
+let g:autoformat_verbosemode=1
 
 " Show trailing spaces and highlight hard tabs
 set list listchars=tab:»·,trail:·
@@ -50,9 +46,6 @@ fun! <SID>StripTrailingWhitespaces()
 endfun
 autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
 
-" Close window if last remaining window is NerdTree
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-
 " Search related settings
 set incsearch
 set hlsearch
@@ -60,39 +53,25 @@ set hlsearch
 " Map Ctrl+l to clear highlighted searches
 nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
 
+" Map F3 to reindent highlighted text
+noremap <F3> :Autoformat<CR>
+
 " Highlight characters behind the 80 chars margin
 :au BufWinEnter * let w:m2=matchadd('ColumnMargin', '\%>80v.\+', -1)
 
 " Disable code folding
 set nofoldenable
 
+" Directories for swp files
+set backupdir=~/.vimbackup
+set directory=~/.vimbackup
+
 " NERDTree configuration
-let NERDTreeIgnore=['\.pyc$', '\.rbc$', '\~$']
-map <Leader>n :NERDTreeToggle<CR>
-
-" Enable Syntastic
-let g:syntastic_check_on_open=1
-let g:syntastic_go_checkers = ['go']
-
-" Use dedicated syntax checkers for these languages
-let g:syntastic_mode_map = {
-    \ "mode": "active",
-    \ "passive_filetypes": ["erlang"] }
-
-" Ignorde JS files on CTAGS generation
-let g:vim_tags_ignore_files = ['.gitignore', '.svnignore', '.cvsignore', '*.js', '*.json', '*.css']
+" let NERDTreeIgnore=['\.pyc$', '\.rbc$', '\~$']
+" map <Leader>n :NERDTreeToggle<CR>
 
 " make uses real tabs
 au FileType make set noexpandtab
-
-" Erlang uses 4 spaces
-au FileType erlang set softtabstop=4 tabstop=4 shiftwidth=4
-
-" Go uses tabs
-au FileType go set noexpandtab tabstop=4 shiftwidth=4
-
-" Go Foo
-let g:go_fmt_command = "goimports"
 
 " Thorfile, Rakefile, Vagrantfile and Gemfile are Ruby
 au BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,config.ru}    set ft=ruby
@@ -103,19 +82,41 @@ au BufNewFile,BufRead *.json set ft=javascript
 " make Python follow PEP8 ( http://www.python.org/dev/peps/pep-0008/ )
 au FileType python set softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79
 
+" allow backspacing over everything in insert mode
+set backspace=indent,eol,start
+
 " ctrp custom ignores
 let g:ctrlp_custom_ignore = {
   \ 'dir':  '\.git$\|\.hg$\|\.svn$\|\.eunit$',
   \ 'file': '\.exe$\|\.so$\|\.dll\|\.beam$\|\.DS_Store$'
   \ }
 
-let g:erlangCheckFile = "~/.vim/bundle/vimerl/compiler/erlang_check_file.erl"
-let g:erlangHighlightErrors = 1
+" remap arrow keys to nothing to force using hjkl for movement
+noremap <Up> <Nop>
+noremap <Down> <Nop>
+noremap <Left> <Nop>
+noremap <Right> <Nop>
+
+" status line fun
+set statusline=   " clear the statusline for when vimrc is reloaded
+set statusline+=%-3.3n\                      " buffer number
+set statusline+=%f\                          " file name
+set statusline+=%h%m%r%w                     " flags
+set statusline+=[%{strlen(&ft)?&ft:'none'},  " filetype
+set statusline+=%{strlen(&fenc)?&fenc:&enc}, " encoding
+set statusline+=%{&fileformat}]              " file format
+set statusline+=%=                           " right align
+set statusline+=%b,0x%-8B\                   " current char
+set statusline+=%-14.(%l,%c%V%)\ %<%P        " offset
 
 
-" Use Ag instead of Ack
-let g:ackprg = 'ag --nogroup --nocolor --column'
+" visual star
+xnoremap * :<C-u>call <SID>VSetSearch('/')<CR>/<C-R>=@/<CR><CR>
+xnoremap # :<C-u>call <SID>VSetSearch('?')<CR>?<C-R>=@/<CR><CR>
 
-" Gitgutter
-let g:gitgutter_sign_column_always = 1
-set updatetime=250
+function! s:VSetSearch(cmdtype)
+  let temp = @s
+  norm! gv"sy
+  let @/ = '\V' . substitute(escape(@s, a:cmdtype.'\'), '\n', '\\n', 'g')
+  let @s = temp
+endfunction
