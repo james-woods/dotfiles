@@ -7,6 +7,11 @@ for config_file ($ZSH/lib/*.zsh) source $config_file
 autoload -U compinit
 compinit -i
 
+# The next line adds Go binaries to the PATH
+export PATH=$PATH:/usr/local/opt/go/libexec/bin
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOPATH/bin
+
 # The next line is an alias to clean up stopped docker containers
 alias dockerrm="docker rm -v $(docker ps -aq -f status=exited)"
 
@@ -23,3 +28,16 @@ export LANG=en_US.UTF-8
 #  fi
 #  unset __agent_run_state
 #fi
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/tkaymak/google-cloud-sdk/path.zsh.inc' ]; then source '/Users/tkaymak/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/tkaymak/google-cloud-sdk/completion.zsh.inc' ]; then source '/Users/tkaymak/google-cloud-sdk/completion.zsh.inc'; fi
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+# The next line loads k8s aliases
+[ -f ~/.kubectl_aliases  ] && source ~/.kubectl_aliases
+func kubectl(){ echo "+ kubectl $@"; command kubectl $@  }
+
