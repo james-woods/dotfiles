@@ -15,10 +15,6 @@
 	path = .vim/bundle/nerdcommenter
     url = https://github.com/scrooloose/nerdcommenter.git
 
-[submodule ".vim/bundle/supertab"]
-	path = .vim/bundle/supertab
-	url = https://github.com/ervandew/supertab.git
-
 [submodule ".vim/bundle/markdown"]
         path = .vim/bundle/vim-markdown
         url = https://github.com/tpope/vim-markdown.git
@@ -27,10 +23,6 @@
 	path = .vim/bundle/syntastic
 	url = https://github.com/scrooloose/syntastic.git
 
-[submodule ".vim/bundle/vim-javascript-syntax"]
-	path = .vim/bundle/vim-javascript-syntax
-	url = https://github.com/jelera/vim-javascript-syntax.git
-
 [submodule ".vim/bundle/ctrlp.vim"]
 	path = .vim/bundle/ctrlp.vim
 	url = https://github.com/ctrlpvim/ctrlp.vim.git
@@ -38,10 +30,6 @@
 [submodule ".vim/bundle/vim-go"]
 	path = .vim/bundle/vim-go
 	url = https://github.com/fatih/vim-go.git
-
-[submodule ".vim/bundle/vim-autoformat"]
-	path = .vim/bundle/vim-autoformat
-	url = https://github.com/Chiel92/vim-autoformat.git
 
 [submodule ".vim/bundle/vim-gitgutter"]
 	path = .vim/bundle/vim-gitgutter
@@ -63,10 +51,6 @@
 	path = .vim/bundle/auto-pairs
 	url = https://github.com/jiangmiao/auto-pairs.git
 
-[submodule ".vim/bundle/vim-velocity"]
-	path = .vim/bundle/vim-velocity
-	url = https://github.com/lepture/vim-velocity.git
-
 [submodule ".vim/bundle/vimtex"]
 	path = .vim/bundle/vimtex
 	url = https://github.com/lervag/vimtex.git
@@ -79,3 +63,12 @@
         path = .vim/bundle/vim-visual-star-search
         url = https://github.com/nelstrom/vim-visual-star-search.git
 
+[submodule "vim-autopep8"]
+	path = vim-autopep8
+	url = https://github.com/tell-k/vim-autopep8
+[submodule ".vim/bundle/jedi-vim"]
+	path = .vim/bundle/jedi-vim
+	url = https://github.com/davidhalter/jedi-vim
+[submodule ".vim/bundle/vim-test"]
+	path = .vim/bundle/vim-test
+	url = https://github.com/janko-m/vim-test
