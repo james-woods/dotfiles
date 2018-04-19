@@ -19,10 +19,6 @@
         path = .vim/bundle/vim-markdown
         url = https://github.com/tpope/vim-markdown.git
 
-[submodule ".vim/bundle/syntastic"]
-	path = .vim/bundle/syntastic
-	url = https://github.com/scrooloose/syntastic.git
-
 [submodule ".vim/bundle/ctrlp.vim"]
 	path = .vim/bundle/ctrlp.vim
 	url = https://github.com/ctrlpvim/ctrlp.vim.git
@@ -72,3 +68,9 @@
 [submodule ".vim/bundle/vim-test"]
 	path = .vim/bundle/vim-test
 	url = https://github.com/janko-m/vim-test
+[submodule ".vim/bundle/ale"]
+	path = .vim/bundle/ale
+	url = https://github.com/w0rp/ale.git
+[submodule ".vim/bundle/yapf"]
+	path = .vim/bundle/yapf
+	url = https://github.com/google/yapf.git
