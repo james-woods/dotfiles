@@ -50,6 +50,10 @@ let g:netrw_preview   = 1
 let g:netrw_liststyle = 3
 let g:netrw_winsize   = 30
 
+" Gitgutter
+set signcolumn=yes
+set updatetime=250 "
+
 " Whitespace stuff
 set autoindent
 set expandtab
