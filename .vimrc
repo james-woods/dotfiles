@@ -4,9 +4,32 @@ set t_Co=256
 
 set nocompatible
 
+" Initialize plug-vim plugin manager
+call plug#begin()
+Plug 'Raimondi/delimitMate'
+Plug 'Valloric/YouCompleteMe'
+Plug 'airblade/vim-gitgutter'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'davidhalter/jedi-vim'
+Plug 'fatih/vim-go'
+Plug 'google/yapf'
+Plug 'janko-m/vim-test'
+Plug 'jiangmiao/auto-pairs'
+Plug 'lervag/vimtex'
+Plug 'mileszs/ack.vim'
+Plug 'nelstrom/vim-visual-star-search'
+Plug 'scrooloose/nerdcommenter'
+Plug 'tell-k/vim-autopep8'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-markdown'
+Plug 'tpope/vim-rhubarb'
+Plug 'tpope/vim-unimpaired'
+Plug 'w0rp/ale'
+call plug#end()
+
 " Initialize Pathogen
-runtime bundle/vim-pathogen/autoload/pathogen.vim
-execute pathogen#infect()
+"runtime bundle/vim-pathogen/autoload/pathogen.vim
+"execute pathogen#infect()
 
 " Enable syntax highlighting
 syntax on
@@ -21,6 +44,11 @@ set ruler
 
 " Set encoding
 set encoding=utf-8
+
+" netrw preview setting
+let g:netrw_preview   = 1
+let g:netrw_liststyle = 3
+let g:netrw_winsize   = 30
 
 " Whitespace stuff
 set autoindent
@@ -70,6 +98,10 @@ set directory=~/.vimbackup
 " let NERDTreeIgnore=['\.pyc$', '\.rbc$', '\~$']
 " map <Leader>n :NERDTreeToggle<CR>
 
+" ale configuration for python
+let g:ale_fixers = {'python': ['isort', 'yapf']}
+let g:ale_fix_on_save = 1
+
 " make uses real tabs
 au FileType make set noexpandtab
 
@@ -79,8 +111,22 @@ au BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,config.ru}    set f
 " add json syntax highlighting
 au BufNewFile,BufRead *.json set ft=javascript
 
+" Disable Jedi Autocomplete
+let g:jedi#completions_enabled = 0
+
 " make Python follow PEP8 ( http://www.python.org/dev/peps/pep-0008/ )
-au FileType python set softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79
+"au FileType python set softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79
+au FileType python set tabstop=4 softtabstop=4 shiftwidth=4 textwidth=79 expandtab autoindent fileformat=unix
+
+"python with virtualenv support
+"py << EOF
+"import os
+"import sys
+"if 'VIRTUAL_ENV' in os.environ:
+"  project_base_dir = os.environ['VIRTUAL_ENV']
+"  activate_this = os.path.join(project_base_dir, 'bin/activate')
+"  execfile(activate_this, dict(__file__=activate_this))
+"EOF
 
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start

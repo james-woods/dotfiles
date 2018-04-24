@@ -1,5 +1,5 @@
 export ZSH=~/.zsh
-
+export CORRECT_IGNORE_FILE='.*'
 # Load all of the config files in ~/oh-my-zsh that end in .zsh
 for config_file ($ZSH/lib/*.zsh) source $config_file
 
@@ -41,3 +41,5 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 [ -f ~/.kubectl_aliases  ] && source ~/.kubectl_aliases
 func kubectl(){ echo "+ kubectl $@"; command kubectl $@  }
 
+# OPAM configuration
+. /Users/tkaymak/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
