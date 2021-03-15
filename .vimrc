@@ -9,7 +9,8 @@ call plug#begin()
 Plug 'Raimondi/delimitMate'
 Plug 'Valloric/YouCompleteMe'
 Plug 'airblade/vim-gitgutter'
-Plug 'ctrlpvim/ctrlp.vim'
+Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf.vim'
 Plug 'davidhalter/jedi-vim'
 Plug 'fatih/vim-go'
 Plug 'google/yapf'
@@ -135,11 +136,7 @@ au FileType python set tabstop=4 softtabstop=4 shiftwidth=4 textwidth=79 expandt
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
 
-" ctrp custom ignores
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\.git$\|\.hg$\|\.svn$\|\.eunit$',
-  \ 'file': '\.exe$\|\.so$\|\.dll\|\.beam$\|\.DS_Store$'
-  \ }
+nnoremap <c-p> :FZF<cr>
 
 " remap arrow keys to nothing to force using hjkl for movement
 noremap <Up> <Nop>
