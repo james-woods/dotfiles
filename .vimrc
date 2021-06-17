@@ -9,16 +9,15 @@ call plug#begin()
 Plug 'Raimondi/delimitMate'
 Plug 'Valloric/YouCompleteMe'
 Plug 'airblade/vim-gitgutter'
-Plug '/usr/local/opt/fzf'
-Plug 'junegunn/fzf.vim'
-Plug 'davidhalter/jedi-vim'
 Plug 'fatih/vim-go'
-Plug 'google/yapf'
 Plug 'janko-m/vim-test'
 Plug 'jiangmiao/auto-pairs'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 Plug 'lervag/vimtex'
 Plug 'mileszs/ack.vim'
 Plug 'nelstrom/vim-visual-star-search'
+Plug 'python/black'
 Plug 'scrooloose/nerdcommenter'
 Plug 'tell-k/vim-autopep8'
 Plug 'tpope/vim-fugitive'
@@ -104,8 +103,10 @@ set directory=~/.vimbackup
 " map <Leader>n :NERDTreeToggle<CR>
 
 " ale configuration for python
-let g:ale_fixers = {'python': ['isort', 'yapf']}
+let g:ale_fixers = {'python': ['autopep8','isort']}
+let g:ale_linters = {'python': ['flake8','pylint']}
 let g:ale_fix_on_save = 1
+let g:ale_virtualenv_dir_names = []
 
 " make uses real tabs
 au FileType make set noexpandtab
@@ -116,12 +117,9 @@ au BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,config.ru}    set f
 " add json syntax highlighting
 au BufNewFile,BufRead *.json set ft=javascript
 
-" Disable Jedi Autocomplete
-let g:jedi#completions_enabled = 0
-
 " make Python follow PEP8 ( http://www.python.org/dev/peps/pep-0008/ )
 "au FileType python set softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79
-au FileType python set tabstop=4 softtabstop=4 shiftwidth=4 textwidth=79 expandtab autoindent fileformat=unix
+"au FileType python set tabstop=4 softtabstop=4 shiftwidth=4 textwidth=79 expandtab autoindent fileformat=unix
 
 "python with virtualenv support
 "py << EOF
@@ -155,4 +153,8 @@ set statusline+=%{&fileformat}]              " file format
 set statusline+=%=                           " right align
 set statusline+=%b,0x%-8B\                   " current char
 set statusline+=%-14.(%l,%c%V%)\ %<%P        " offset
+
+" configure YCM
+let g:ycm_autoclose_preview_window_after_completion=1
+nnoremap <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
